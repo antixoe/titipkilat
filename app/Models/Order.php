@@ -1,0 +1,4 @@
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class Order extends Model { protected $fillable = ['customer_id','courier_id','traveler_id','type','status','trip_reference','origin_zone','destination_zone','weight_lbs','pickup_address','delivery_address','item_description','item_count','item_cost','shipping_cost','commission','courier_fee','dp_amount','dp_required','invoice_photo','invoice_details','purchase_photo']; protected $casts = ['weight_lbs'=>'float','item_cost'=>'integer','shipping_cost'=>'integer','commission'=>'integer','courier_fee'=>'integer','dp_amount'=>'integer','dp_required'=>'boolean','invoice_details'=>'array']; public function customer(){return $this->belongsTo(User::class,'customer_id');} public function courier(){return $this->belongsTo(User::class,'courier_id');} public function traveler(){return $this->belongsTo(User::class,'traveler_id');} }

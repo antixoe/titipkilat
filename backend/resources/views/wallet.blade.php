@@ -1,0 +1,1 @@
+@extends('layouts.app') @section('content')<h1>E-Wallet</h1><div class="card"><p class="muted">Saldo tersedia</p><div class="stat">Rp 0</div><p class="muted">Top-up dikenakan biaya layanan Rp1.000. Semua transaksi dicatat dalam ledger.</p><a class="button" href="{{ url('/wallet/top-up') }}">Top up saldo</a></div>@endsection

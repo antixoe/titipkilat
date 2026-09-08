@@ -1,0 +1,4 @@
+@extends('layouts.app')
+@section('content')
+<div class="card" style="max-width:480px;margin:40px auto"><div class="section-title">Login</div><p style="color:var(--muted);font-size:13px;margin:6px 0 22px">Masuk ke akun Titip Kilat.</p>@if($errors->any())<p style="color:#b91c1c;font-size:13px;margin-bottom:14px">{{ $errors->first() }}</p>@endif<form class="login-form" method="POST" action="{{ route('login.authenticate') }}">@csrf<label>Email<input class="form-input" name="email" type="email" value="{{ old('email') }}" required autofocus></label><label>Password<input class="form-input" name="password" type="password" required></label><button class="btn btn-primary" type="submit" style="justify-content:center">Masuk</button></form><p style="color:var(--muted);font-size:13px;text-align:center;margin-top:18px">Belum punya akun? <a href="{{ route('signup') }}" style="color:#2563eb;font-weight:700">Daftar sekarang</a></p></div>
+@endsection

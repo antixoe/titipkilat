@@ -1,0 +1,32 @@
+<?php
+use App\Http\Controllers\Api\{AdminController,AuthController,DashboardController,OrderController,RatingController,SettlementController,SuperAdminController,TripController,WalletController}; use Illuminate\Support\Facades\Route;
+Route::prefix('auth')->group(function(){Route::post('/register',[AuthController::class,'register']);Route::post('/login',[AuthController::class,'login']);});
+Route::middleware('auth:sanctum')->group(function(){
+    Route::post('/auth/logout',[AuthController::class,'logout']);
+    Route::get('/me',fn(\Illuminate\Http\Request $r)=>$r->user()->load('role','wallet'));
+    Route::get('/wallet',[WalletController::class,'show']);
+    Route::get('/shipping/quote',[OrderController::class,'shippingQuote']);
+    Route::post('/wallet/top-up',[WalletController::class,'topUp']);
+    Route::post('/orders',[OrderController::class,'store'])->middleware('role:USER');
+    Route::get('/orders/{order}',[OrderController::class,'show']);
+    Route::post('/orders/{order}/claim',[OrderController::class,'claim'])->middleware('role:COURIER');
+    Route::patch('/orders/{order}/dp',[OrderController::class,'setDp'])->middleware('role:COURIER');
+    Route::post('/orders/{order}/invoice',[OrderController::class,'uploadInvoice'])->middleware('role:COURIER');
+    Route::patch('/orders/{order}/status',[OrderController::class,'updateStatus'])->middleware('role:COURIER');
+    Route::get('/trips',[TripController::class,'index']);
+    Route::post('/trips',[TripController::class,'store'])->middleware('role:TRAVELER');
+    Route::post('/orders/{order}/accept-po',[OrderController::class,'acceptPo'])->middleware('role:TRAVELER');
+    Route::post('/orders/{order}/purchase-photo',[OrderController::class,'uploadPurchase'])->middleware('role:TRAVELER');
+    Route::patch('/orders/{order}/ship',[OrderController::class,'shipInternational'])->middleware('role:TRAVELER');
+    Route::post('/orders/{order}/dispute',[AdminController::class,'submitDispute']);
+    Route::post('/orders/{order}/complete',[SettlementController::class,'settle'])->middleware('role:USER');
+    Route::post('/orders/{order}/rating',[RatingController::class,'store'])->middleware('role:USER');
+    Route::prefix('admin')->middleware('role:ADMIN')->group(function(){Route::get('/transactions/active',[AdminController::class,'activeTransactions']);Route::get('/disputes',[AdminController::class,'disputes']);Route::patch('/disputes/{dispute}',[AdminController::class,'resolveDispute']);Route::patch('/users/{user}/kyc',[AdminController::class,'verifyKyc']);});
+    Route::get('/dashboard/user',[DashboardController::class,'index',])->defaults('role','USER')->middleware('role:USER');
+    Route::get('/dashboard/courier',[DashboardController::class,'index'])->defaults('role','COURIER')->middleware('role:COURIER');
+    Route::get('/dashboard/traveler',[DashboardController::class,'index'])->defaults('role','TRAVELER')->middleware('role:TRAVELER');
+    Route::get('/dashboard/admin',[DashboardController::class,'index'])->defaults('role','ADMIN')->middleware('role:ADMIN');
+    Route::get('/dashboard/operator',[DashboardController::class,'index'])->defaults('role','OPERATOR')->middleware('role:OPERATOR');
+    Route::get('/dashboard/super-admin',[DashboardController::class,'index'])->defaults('role','SUPER_ADMIN')->middleware('role:SUPER_ADMIN');
+    Route::prefix('super-admin')->middleware('role:SUPER_ADMIN')->group(function(){Route::get('/ledger',[SuperAdminController::class,'ledger']);Route::get('/fees',[SuperAdminController::class,'fees']);Route::patch('/fees/{feeSetting}',[SuperAdminController::class,'updateFee']);Route::get('/monitoring',[SuperAdminController::class,'monitoring']);});
+});

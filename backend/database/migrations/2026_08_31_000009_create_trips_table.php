@@ -1,0 +1,3 @@
+<?php
+use Illuminate\Database\Migrations\Migration; use Illuminate\Database\Schema\Blueprint; use Illuminate\Support\Facades\Schema;
+return new class extends Migration { public function up(): void { Schema::create('trips',function(Blueprint $t){$t->id();$t->foreignId('traveler_id')->constrained('users')->cascadeOnDelete();$t->string('code')->unique();$t->string('origin');$t->string('destination');$t->dateTime('departure_at');$t->dateTime('arrival_at')->nullable();$t->boolean('dp_required')->default(true);$t->unsignedTinyInteger('dp_percent')->default(50);$t->string('status')->default('TRIP_OPEN');$t->timestamps();$t->index(['status','destination']);}); } public function down(): void {Schema::dropIfExists('trips');} };
