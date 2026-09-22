@@ -1,121 +1,15 @@
 @extends('layouts.app')
 @section('content')
-<style>
-  .card > div[style*="font-size:32px"] { font-size:0!important; }
-  .card > div[style*="font-size:32px"]::before { font-family:'bootstrap-icons'; font-size:32px; color:#2563eb; }
-  .card > div[style*="font-size:32px"]::before { content:'\f1c1'; }
-  .card > div[style*="font-size:32px"] + h4 + p { color:var(--muted); }
-  form > .card h4 { font-size:0!important; }
-  form > .card h4::before { font-family:'bootstrap-icons'; font-size:17px; color:#2563eb; margin-right:8px; }
-  form > .card h4::after { font-size:15px; color:var(--dark); }
-  form > .card:nth-of-type(1) h4::before { content:'\f4c5'; }
-  form > .card:nth-of-type(1) h4::after { content:'Lokasi'; }
-  form > .card:nth-of-type(2) h4::before { content:'\f1c1'; }
-  form > .card:nth-of-type(2) h4::after { content:'Barang'; }
-  form > .card:nth-of-type(3) h4::before { content:'\f2db'; }
-  form > .card:nth-of-type(3) h4::after { content:'Biaya Estimasi'; }
-</style>
-<div class="section-header">
-  <div>
-    <span class="section-title">Buat Pesanan</span>
-    <p style="color:var(--muted);font-size:14px;margin-top:4px;">Isi detail barang untuk dikirim oleh kurir atau traveler</p>
-  </div>
-</div>
-
-<!-- Step Indicator -->
-<div class="steps">
-  <div class="step active">
-    <span class="step-num">1</span>
-    <span>Rincian</span>
-  </div>
-  <div class="step-line"></div>
-  <div class="step">
-    <span class="step-num">2</span>
-    <span>Kirim</span>
-  </div>
-  <div class="step-line"></div>
-  <div class="step">
-    <span class="step-num">3</span>
-    <span>Selesai</span>
-  </div>
-</div>
-
-<!-- Pesanan Type Selection -->
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px;">
-  <div class="card" style="border:2px solid var(--red);cursor:pointer;position:relative;">
-    <span class="badge badge-red" style="position:absolute;top:12px;right:12px;">aktif</span>
-    <div style="font-size:32px;margin-bottom:8px;">📦</div>
-    <h4 style="font-size:16px;font-weight:700;margin-bottom:4px;">Antar Warga</h4>
-    <p style="color:var(--muted);font-size:13px;">Kurir lokal beli & kirim barang</p>
-  </div>
-  <div class="card" style="cursor:pointer;opacity:.6;">
-    <div style="font-size:32px;margin-bottom:8px;">✈️</div>
-    <h4 style="font-size:16px;font-weight:700;margin-bottom:4px;">Pra-pesan Internasional</h4>
-    <p style="color:var(--muted);font-size:13px;">Pilih traveler dari trip yang tersedia</p>
-  </div>
-</div>
-
-<!-- Form -->
-<form>
-  <div class="card" style="margin-bottom:16px;">
-    <h4 style="font-size:15px;font-weight:700;margin-bottom:16px;">📍 Lokasi</h4>
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Asal (zona)</label>
-        <input type="text" class="form-input" placeholder="JAKARTA" value="JAKARTA">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Tujuan (zona)</label>
-        <input type="text" class="form-input" placeholder="BANDUNG">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Alamat Penjemputan</label>
-      <input type="text" class="form-input" placeholder="Jl. Sudirman No.1, Jakarta Pusat">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Alamat Pengiriman</label>
-      <input type="text" class="form-input" placeholder="Jl. Buah Batu No.42, Bandung">
-    </div>
-  </div>
-
-  <div class="card" style="margin-bottom:16px;">
-    <h4 style="font-size:15px;font-weight:700;margin-bottom:16px;">📦 Barang</h4>
-    <div class="form-group">
-      <label class="form-label">Deskripsi Barang</label>
-      <input type="text" class="form-input" placeholder="Laptop ASUS ROG, 1 unit">
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Berat (lbs)</label>
-        <input type="number" class="form-input" placeholder="2.5" step="0.1" min="0.1">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Jumlah Item</label>
-        <input type="number" class="form-input" placeholder="1" value="1" min="1">
-      </div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-bottom:16px;">
-    <h4 style="font-size:15px;font-weight:700;margin-bottom:16px;">💳 Biaya Estimasi</h4>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-      <div style="padding:14px;background:var(--bg);border-radius:10px;">
-        <div style="font-size:12px;color:var(--muted);">Ongkir</div>
-        <div style="font-size:18px;font-weight:800;">Rp 0</div>
-        <div style="font-size:11px;color:var(--muted);">berat × rate + km × rate</div>
-      </div>
-      <div style="padding:14px;background:var(--bg);border-radius:10px;">
-        <div style="font-size:12px;color:var(--muted);">Platform Biaya</div>
-        <div style="font-size:18px;font-weight:800;color:var(--red);">Rp 1.000</div>
-        <div style="font-size:11px;color:var(--muted);">per transaksi</div>
-      </div>
-    </div>
-  </div>
-
-  <div style="display:flex;gap:12px;">
-    <a href="{{ url('/orders') }}" class="btn btn-outline" style="flex:1;justify-content:center;">Batal</a>
-    <button type="submit" class="btn btn-primary" style="flex:2;justify-content:center;">Buat Pesanan Sekarang</button>
-  </div>
-</form>
+<style>.request-shell{max-width:860px}.location-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.request-card{margin-bottom:16px;padding:24px;border:1px solid var(--border);border-radius:20px;background:var(--surface)}.request-card h2{font-size:18px;margin-bottom:5px}.request-card>p{color:var(--muted);font-size:13px;margin-bottom:18px}.request-card label{display:grid;gap:6px;color:var(--slate);font-size:12px;font-weight:700}.request-card input,.request-card select,.request-card textarea{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:12px;background:var(--surface);font:inherit;color:var(--dark)}.request-card textarea{min-height:90px;resize:vertical}.item-list{display:grid;gap:10px}.item-row{display:grid;grid-template-columns:minmax(0,1fr) 110px 42px;gap:9px;align-items:end;padding:12px;border:1px solid var(--border);border-radius:14px;background:rgba(248,250,252,.7)}.item-row label{font-size:11px}.remove-item{height:43px;border:1px solid #fecaca;border-radius:11px;background:#fff1f2;color:#dc2626;cursor:pointer}.request-actions{display:flex;gap:12px}.request-actions>*{flex:1;justify-content:center}@media(max-width:620px){.location-grid{grid-template-columns:1fr}.item-row{grid-template-columns:1fr 90px 42px}.request-shell{width:100%}}</style>
+<div class="request-shell"><div style="margin-bottom:24px"><span class="section-title">Buat permintaan belanja</span><h1 style="font-size:clamp(28px,5vw,44px);letter-spacing:-.06em;margin-top:7px">Apa yang ingin kamu titipkan?</h1><p style="color:var(--muted);font-size:14px;margin-top:6px">Tambahkan barang satu per satu. Kurir akan melihat nama, jumlah, dan catatan setiap barang.</p></div>
+<form method="POST" action="{{ route('orders.store') }}">@csrf @if($trip)<input type="hidden" name="type" value="INTERNATIONAL_PO"><input type="hidden" name="trip_reference" value="{{ $trip->code }}"><div class="request-card" style="border-color:#c4b5fd;background:#f5f3ff"><strong><i class="bi bi-airplane"></i> Order untuk {{ $trip->code }}</strong><p style="margin:6px 0 0">Traveler: {{ $trip->traveler?->name }} · {{ $trip->origin }} → {{ $trip->destination }}</p></div>@endif
+<section class="request-card"><h2><i class="bi bi-geo-alt" style="color:#2563eb"></i> Lokasi belanja dan pengiriman</h2><p>Lokasi belanja dipakai untuk mencocokkan pesanan dengan kurir terdekat.</p><div class="location-grid"><label>Belanja di<select name="origin_zone" id="origin-zone" required><option value="">Pilih kota / zona</option>@foreach($zones as $zone)<option value="{{ $zone }}" @selected(old('origin_zone') === $zone)>{{ $zone }}</option>@endforeach</select></label><label>Kirim ke<select name="destination_zone" id="destination-zone" required><option value="">Pilih tujuan</option>@foreach($routes->pluck('destination_zone')->unique()->sort() as $zone)<option value="{{ $zone }}" @selected(old('destination_zone') === $zone)>{{ $zone }}</option>@endforeach</select></label></div><div class="location-grid" style="margin-top:14px"><label>Alamat toko / pickup<textarea name="pickup_address" required placeholder="Nama toko dan alamat lengkap">{{ old('pickup_address') }}</textarea></label><label>Alamat penerima<textarea name="delivery_address" required placeholder="Alamat pengiriman lengkap">{{ old('delivery_address') }}</textarea></label></div></section>
+<section class="request-card"><h2><i class="bi bi-bag-heart" style="color:#2563eb"></i> Daftar barang</h2><p>Masukkan setiap barang di baris terpisah, lalu isi jumlahnya di sebelah kanan.</p><div class="item-list" id="item-list"><div class="item-row"><label>Nama / detail barang<input name="items[0][name]" required placeholder="Contoh: Sunscreen SPF50 60ml"></label><label>Jumlah<input type="number" name="items[0][quantity]" value="1" min="1" max="100" required></label><button type="button" class="remove-item" aria-label="Hapus barang" disabled><i class="bi bi-trash"></i></button><label style="grid-column:1/-1">Catatan pilihan <input name="items[0][notes]" placeholder="Merek, ukuran, warna, atau alternatif (opsional)"></label></div></div><button type="button" class="btn btn-outline btn-sm" id="add-item" style="margin-top:12px"><i class="bi bi-plus-lg"></i> Tambah barang</button><label style="margin-top:16px">Total budget semua barang (Rp)<input type="number" name="item_cost" value="{{ old('item_cost') }}" min="0" step="1000" required placeholder="250000"></label></section>
+<div class="request-actions"><a href="{{ route('orders.index') }}" class="btn btn-outline">Batal</a><button type="submit" class="btn btn-primary"><i class="bi bi-send"></i> Publikasikan permintaan</button></div></form></div>
+<script>
+  (() => {
+    const origin=document.getElementById('origin-zone');const destination=document.getElementById('destination-zone');const routes=@json($routes->groupBy('origin_zone')->map(fn($items)=>$items->pluck('destination_zone')->values()));const refresh=()=>{const allowed=routes[origin.value]||[];destination.querySelectorAll('option:not(:first-child)').forEach(option=>option.remove());allowed.forEach(zone=>destination.add(new Option(zone,zone)));if(!allowed.includes(destination.value))destination.value='';};origin.addEventListener('change',refresh);refresh();
+    const list=document.getElementById('item-list');const add=document.getElementById('add-item');let index=1;const updateRemove=()=>list.querySelectorAll('.remove-item').forEach(button=>button.disabled=list.children.length===1);add.addEventListener('click',()=>{const row=document.createElement('div');row.className='item-row';row.innerHTML=`<label>Nama / detail barang<input name="items[${index}][name]" required placeholder="Contoh: Kopi, skincare, atau oleh-oleh"></label><label>Jumlah<input type="number" name="items[${index}][quantity]" value="1" min="1" max="100" required></label><button type="button" class="remove-item" aria-label="Hapus barang"><i class="bi bi-trash"></i></button><label style="grid-column:1/-1">Catatan pilihan <input name="items[${index}][notes]" placeholder="Merek, ukuran, warna, atau alternatif (opsional)"></label>`;row.querySelector('.remove-item').addEventListener('click',()=>{row.remove();updateRemove();});list.appendChild(row);index++;updateRemove();});
+  })();
+</script>
 @endsection

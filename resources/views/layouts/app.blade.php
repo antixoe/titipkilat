@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ $title ?? 'Titip Kilat' }}</title>
+  <script>try{if(localStorage.getItem('titip-kilat-theme')==='dark')document.documentElement.classList.add('theme-dark-pending');}catch(e){}</script>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -35,6 +36,10 @@
       line-height: 1.6;
       min-height: 100vh;
     }
+    html.theme-dark-pending body { --dark:#e5edff;--slate:#cbd5e1;--muted:#a8b6ce;--bg:#0f172a;--surface:#172554;--border:#334155;background:linear-gradient(135deg,#0f172a,#172554 54%,#111827);color:var(--dark); }
+
+    /* Guests only need access to the public landing page and login. */
+    .guest-page .sidebar-link:not(.home-link), .guest-page .sidebar-nav .sidebar-section:not(:first-child) { display:none; }
 
     /* ── Sidebar ── */
     .layout { display: flex; min-height: 100vh; }
@@ -385,6 +390,23 @@
       .form-row { grid-template-columns: 1fr; }
       .card-grid { grid-template-columns: 1fr; }
     }
+    /* Keep page surfaces consistent when dark mode is active. */
+    body.dark-mode .topbar,body.dark-mode .page-banner,body.dark-mode .card,body.dark-mode .stat-card,body.dark-mode .table-wrap,body.dark-mode .metric-strip,body.dark-mode .process-row,body.dark-mode .trip-data-card,body.dark-mode .user-dialog,body.dark-mode .po-dialog,body.dark-mode .wallet-dialog,body.dark-mode .login-dialog { background-color:rgba(23,37,84,.86); border-color:#334155; color:var(--dark); }
+    body.dark-mode .form-input,body.dark-mode input,body.dark-mode select,body.dark-mode textarea { background-color:#0f172a; border-color:#475569; color:var(--dark); }
+    body.dark-mode [style*="background:#fff"],body.dark-mode [style*="background: #fff"],body.dark-mode [style*="background:white"] { background-color:#0f172a!important; color:var(--dark)!important; }
+    body.dark-mode .form-input::placeholder,body.dark-mode input::placeholder,body.dark-mode textarea::placeholder { color:#8293af; }
+    body.dark-mode .trip-data-card{background:linear-gradient(145deg,rgba(23,37,84,.9),rgba(30,41,80,.86));}.dark-mode .trip-data-card h3,.dark-mode .trip-data-detail strong{color:#dbeafe}.dark-mode .trip-data-route{color:#cbd5e1}.dark-mode .trip-data-detail{border-color:rgba(148,163,184,.2)}
+    body.dark-mode .payment-method,body.dark-mode .payment-instruction,body.dark-mode .trip-product-item,body.dark-mode .trip-detail-item,body.dark-mode .po-details { background:#1e293b; border-color:#475569; color:var(--dark); }body.dark-mode .payment-method:hover,body.dark-mode .payment-method.active{background:#312e81;color:#e0e7ff}.dark-mode .payment-method small,.dark-mode .trip-product-item p{color:#a8b6ce!important}
+    body.dark-mode .metric-strip,body.dark-mode .process-row,body.dark-mode .service-item,body.dark-mode .admin-stats,body.dark-mode .admin-chart,body.dark-mode .admin-modules,body.dark-mode .admin-activity{background:rgba(23,37,84,.86);border-color:#334155;color:var(--dark)}body.dark-mode .admin-module{background:transparent;border-color:#334155}body.dark-mode .admin-module:hover{background:#1e3a6f}body.dark-mode .admin-attention{background:#422006;border-color:#92400e;color:#fed7aa}body.dark-mode .admin-chart-grid{stroke:#475569}body.dark-mode .admin-chart-summary-value{color:#dbeafe}body.dark-mode .admin-chart-legend{color:#cbd5e1}body.dark-mode .metric-item,body.dark-mode .process-item{border-color:#334155}body.dark-mode .service-item>i,body.dark-mode .metric-item i,body.dark-mode .wallet-stat i{background:#1e3a6f;color:#bfdbfe}
+    body.dark-mode .admin-stat-icon[style],body.dark-mode .admin-module i[style]{background:#1e3a6f!important;color:#bfdbfe!important}
+    body.dark-mode .pagination-wrap a,body.dark-mode .pagination-wrap span{background:#1e293b;border-color:#475569;color:#cbd5e1}body.dark-mode .pagination-wrap a:hover{background:#1e3a6f;border-color:#60a5fa;color:#dbeafe}body.dark-mode .pagination-wrap span[aria-current="page"]{background:#2563eb;border-color:#60a5fa;color:#fff}body.dark-mode .pagination-wrap span[aria-disabled="true"]{background:#0f172a;color:#64748b;border-color:#334155}
+    body.dark-mode .settings-menu a.active,body.dark-mode .settings-menu a:hover{background:#1e3a6f;color:#bfdbfe}.dark-mode .reset-password-note{background:linear-gradient(135deg,#172554,#312e81);border-color:#475569;color:#dbeafe}
+    /* Comfortable modal close targets */
+    .order-modal-close,.order-form-close,.login-close,.user-modal-close { width:44px; height:44px; top:10px; right:10px; display:grid; place-items:center; padding:0; border:1px solid rgba(148,163,184,.16); border-radius:14px; background:rgba(241,245,249,.78); color:var(--slate); font-size:25px; line-height:1; cursor:pointer; transition:background .18s ease,color .18s ease,transform .18s ease,box-shadow .18s ease; }
+    .order-modal-close:hover,.order-form-close:hover,.login-close:hover,.user-modal-close:hover { background:rgba(226,232,240,.96); color:var(--dark); transform:scale(1.04); box-shadow:0 7px 16px rgba(23,37,84,.12); }
+    .order-modal-close:focus-visible,.order-form-close:focus-visible,.login-close:focus-visible,.user-modal-close:focus-visible { outline:3px solid rgba(37,99,235,.25); outline-offset:2px; }
+    body.dark-mode .order-modal-close,body.dark-mode .order-form-close,body.dark-mode .login-close,body.dark-mode .user-modal-close { background:rgba(51,65,85,.82); color:#e2e8f0; border-color:rgba(148,163,184,.28); }
+    @media(max-width:560px){.order-modal-close,.order-form-close,.login-close,.user-modal-close{top:8px;right:8px;width:46px;height:46px;border-radius:15px}}
   </style>
   <style>
     /* Clean light mode / blue gradient refresh */
@@ -562,7 +584,7 @@
     .login-modal.is-open { display:grid; }
     .login-dialog { width:min(100%,430px); position:relative; padding:28px; border-radius:24px; background:rgba(255,255,255,.95); box-shadow:0 24px 70px rgba(23,37,84,.25); }
     .login-dialog h2 { margin-bottom:6px; }.login-dialog>p { color:var(--muted); font-size:13px; }.login-form { display:grid; gap:14px; margin-top:20px; }.login-form label { display:grid; gap:6px; color:var(--slate); font-size:12px; font-weight:700; }.login-form input { width:100%; padding:12px 14px; border:1px solid var(--border); border-radius:12px; font:inherit; }.login-close { position:absolute; top:16px; right:16px; width:32px; height:32px; border:0; border-radius:50%; background:var(--bg); color:var(--slate); font-size:20px; cursor:pointer; }.login-signup { margin-top:16px; color:var(--muted); font-size:12px; text-align:center; }.login-signup a { color:#2563eb; font-weight:700; }
-    .toast-container { position:fixed; top:96px; right:24px; z-index:300; display:grid; gap:10px; width:min(360px,calc(100% - 32px)); pointer-events:none; }.toast { display:flex; align-items:flex-start; gap:11px; padding:15px 16px; border:1px solid rgba(255,255,255,.82); border-radius:17px; background:rgba(255,255,255,.78); color:var(--dark); box-shadow:0 18px 45px rgba(23,37,84,.18),inset 0 1px 0 rgba(255,255,255,.95); backdrop-filter:blur(20px) saturate(150%); pointer-events:auto; animation:toast-in .25s ease-out; }.toast i{font-size:19px}.toast strong{display:block;font-size:13px}.toast span{display:block;margin-top:2px;color:var(--muted);font-size:12px;line-height:1.45}.toast-success i{color:#16a34a}.toast-error i{color:#dc2626}.toast-close{margin-left:auto;border:0;background:transparent;color:var(--muted);font-size:18px;cursor:pointer}.toast.is-leaving{animation:toast-out .2s ease-in forwards}@keyframes toast-in{from{opacity:0;transform:translateY(-12px) scale(.97)}to{opacity:1;transform:none}}@keyframes toast-out{to{opacity:0;transform:translateY(-8px) scale(.97)}}body.dark-mode .toast{background:rgba(23,37,84,.82);border-color:#475569}
+    .toast-container { position:fixed; top:max(24px,env(safe-area-inset-top)); right:max(24px,env(safe-area-inset-right)); z-index:300; display:grid; gap:12px; width:min(390px,calc(100% - 32px)); pointer-events:none; }.toast { position:relative; display:flex; align-items:flex-start; gap:12px; overflow:hidden; padding:16px 17px; border:1px solid rgba(255,255,255,.86); border-radius:20px; background:linear-gradient(135deg,rgba(255,255,255,.9),rgba(247,250,255,.72)); color:var(--dark); box-shadow:0 20px 48px rgba(23,37,84,.2),0 3px 10px rgba(23,37,84,.06),inset 0 1px 0 rgba(255,255,255,.98); backdrop-filter:blur(24px) saturate(160%); pointer-events:auto; animation:toast-in .32s cubic-bezier(.22,1,.36,1); }.toast>i { flex:0 0 auto; display:grid; place-items:center; width:32px; height:32px; border-radius:11px; background:rgba(22,163,74,.12); font-size:17px; }.toast strong{display:block;font-size:13px;font-weight:800;letter-spacing:-.01em}.toast span{display:block;margin-top:3px;color:var(--muted);font-size:12px;line-height:1.45}.toast-success i{color:#16a34a}.toast-error i{color:#dc2626;background:rgba(220,38,38,.1)}.toast-info i{color:#2563eb;background:rgba(37,99,235,.1)}.toast-close{margin-left:auto;padding:0 0 0 8px;border:0;background:transparent;color:var(--muted);font-size:19px;line-height:1;cursor:pointer;transition:color .15s}.toast-close:hover{color:var(--dark)}.toast::after{content:'';position:absolute;right:0;bottom:0;left:0;height:2px;background:#22c55e;transform-origin:left;animation:toast-progress 4.5s linear forwards}.toast-error::after{background:#ef4444}.toast-info::after{background:#3b82f6}.toast.is-leaving{animation:toast-out .22s ease-in forwards}@keyframes toast-in{from{opacity:0;transform:translate3d(24px,-8px,0) scale(.96)}to{opacity:1;transform:none}}@keyframes toast-out{to{opacity:0;transform:translate3d(24px,-8px,0) scale(.96)}}@keyframes toast-progress{from{transform:scaleX(1)}to{transform:scaleX(0)}}body.dark-mode .toast{background:linear-gradient(135deg,rgba(23,37,84,.94),rgba(30,41,59,.84));border-color:rgba(148,163,184,.32)}body.dark-mode .toast-close:hover{color:#fff}@media(max-width:560px){.toast-container{top:max(14px,env(safe-area-inset-top));right:16px;left:16px;width:auto}.toast{border-radius:17px}}
     .form-loading { opacity:.8; cursor:wait!important; }.form-loading::before { content:''; display:inline-block; width:13px; height:13px; margin-right:7px; border:2px solid currentColor; border-right-color:transparent; border-radius:50%; vertical-align:-2px; animation:form-spin .65s linear infinite; } @keyframes form-spin { to { transform:rotate(360deg); } }
     .password-field { position:relative; display:flex; align-items:center; width:100%; }.password-field input { padding-right:44px!important; }.password-toggle { position:absolute; right:10px; border:0; background:transparent; color:var(--muted); cursor:pointer; font-size:16px; padding:5px; }.password-toggle:hover { color:#2563eb; }
     @media(max-width:520px) { .order-modal-options { grid-template-columns:1fr; } }
@@ -578,6 +600,8 @@
     table { background:rgba(255,255,255,.3); }
     th { background:rgba(239,246,255,.7); }
     td, th { border-bottom-color:rgba(148,163,184,.18); }
+    body.dark-mode table,body.dark-mode .users-table{background:#172554;color:var(--dark)}body.dark-mode thead,body.dark-mode th{background:#1e3a6f;color:#bfdbfe;border-color:#475569}body.dark-mode tbody tr{background:#172554;color:#dbeafe;border-color:#334155}body.dark-mode tbody tr:nth-child(even){background:#1a2b5d}body.dark-mode tbody tr:hover{background:#233b76}body.dark-mode td,body.dark-mode th{border-bottom-color:#334155}body.dark-mode .empty{background:transparent;color:var(--dark)}body.dark-mode .empty-title{color:#dbeafe}body.dark-mode .users-table .user-name{color:#dbeafe}body.dark-mode .users-table .user-email{color:#a8b6ce}
+    body.dark-mode form.card,body.dark-mode .trip-filter-bar,body.dark-mode .users-mini-nav{background:rgba(23,37,84,.9)!important;border-color:#334155!important;color:var(--dark)}body.dark-mode form.card label,body.dark-mode .form-label{color:#cbd5e1!important}body.dark-mode .form-input,body.dark-mode form select,body.dark-mode form input,body.dark-mode form textarea{background:#0f172a!important;border-color:#475569!important;color:#e5edff!important}body.dark-mode option{background:#172554;color:#e5edff}body.dark-mode .btn-outline{background:#1e293b;color:#cbd5e1;border-color:#475569}body.dark-mode .btn-outline:hover{background:#1e3a6f;color:#dbeafe;border-color:#60a5fa}
     .empty { padding:64px 24px; }
     @media (max-width:860px) { .card { padding:21px; } .steps { padding:12px; } }
     /* Compact app-style icon navigation */
@@ -620,34 +644,45 @@
     @media(max-width:560px) { .page-banner { display:block; } .page-banner::after { right:-180px; } .page-banner-status { display:inline-block; min-width:0; margin-top:18px; } }
   </style>
 </head>
-<body>
+<body class="{{ auth()->guest() ? 'guest-page' : '' }} {{ request()->is('signup') || request()->is('password/change*') || request()->routeIs('password.change') ? 'auth-page' : '' }}">
+  <script>try{if(localStorage.getItem('titip-kilat-theme')==='dark')document.body.classList.add('dark-mode');}catch(e){}</script>
   <div class="layout">
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-brand">
-        <a href="{{ auth()->user()?->role?->name === 'SUPER_ADMIN' ? url('/dashboard/super-admin') : url('/') }}">
+        <a href="{{ auth()->user()?->role?->name === 'SUPER_ADMIN' ? url('/dashboard/super-admin') : (auth()->user()?->role?->name === 'ADMIN' ? url('/dashboard/admin') : url('/')) }}">
           <span class="logo">⚡</span>
           Titip Kilat
         </a>
       </div>
       <div class="auth-actions">@auth <span class="nav-greeting">Hi, {{ Str::limit(auth()->user()->name, 18) }}</span><form method="POST" action="{{ route('logout') }}">@csrf<button class="btn auth-login btn-sm" type="submit">Logout</button></form> @else <button class="btn auth-login btn-sm" type="button" data-login-modal>Login</button> @endauth</div>
       <nav class="sidebar-nav">
+        @php($canManageUsers = in_array(auth()->user()?->role?->name, ['ADMIN', 'SUPER_ADMIN'], true))
         <div class="sidebar-section">Menu</div>
-        <a href="{{ auth()->user()?->role?->name === 'SUPER_ADMIN' ? url('/dashboard/super-admin') : url('/') }}" title="{{ auth()->user()?->role?->name === 'SUPER_ADMIN' ? 'Dashboard' : 'Beranda' }}" class="sidebar-link home-link {{ auth()->user()?->role?->name === 'SUPER_ADMIN' ? (request()->is('dashboard/super-admin') ? 'active' : '') : (request()->is('/') ? 'active' : '') }}">
-          <span class="icon">{{ auth()->user()?->role?->name === 'SUPER_ADMIN' ? '📊' : '🏠' }}</span> {{ auth()->user()?->role?->name === 'SUPER_ADMIN' ? 'Dashboard' : 'Beranda' }}
+        <a href="{{ auth()->user()?->role?->name === 'SUPER_ADMIN' ? url('/dashboard/super-admin') : (auth()->user()?->role?->name === 'ADMIN' ? url('/dashboard/admin') : url('/')) }}" title="{{ in_array(auth()->user()?->role?->name, ['SUPER_ADMIN','ADMIN'], true) ? 'Dashboard' : 'Beranda' }}" class="sidebar-link home-link {{ auth()->user()?->role?->name === 'SUPER_ADMIN' ? (request()->is('dashboard/super-admin') ? 'active' : '') : (auth()->user()?->role?->name === 'ADMIN' ? (request()->is('dashboard/admin') ? 'active' : '') : (request()->is('/') ? 'active' : '')) }}">
+          <span class="icon">{{ in_array(auth()->user()?->role?->name, ['SUPER_ADMIN','ADMIN'], true) ? '📊' : '🏠' }}</span> {{ in_array(auth()->user()?->role?->name, ['SUPER_ADMIN','ADMIN'], true) ? 'Dashboard' : 'Beranda' }}
         </a>
+        @if(!in_array(auth()->user()?->role?->name, ['TRAVELER', 'ADMIN', 'SUPER_ADMIN'], true))
         <a href="{{ url('/orders') }}" title="Pesanan" class="sidebar-link {{ request()->is('orders*') ? 'active' : '' }}">
           <span class="icon">📋</span> Pesanan
         </a>
+        @endif
         <a href="{{ url('/wallet') }}" title="Dompet Digital" class="sidebar-link {{ request()->is('wallet*') ? 'active' : '' }}">
           <span class="icon">💰</span> Dompet Digital
         </a>
+        @if(!in_array(auth()->user()?->role?->name, ['COURIER', 'TRAVELER', 'ADMIN', 'SUPER_ADMIN'], true))
         <a href="{{ url('/trips') }}" title="Perjalanan" class="sidebar-link {{ request()->is('trips') ? 'active' : '' }}">
           <span class="icon">✈️</span> Perjalanan
         </a>
+        @endif
 
         <a href="{{ url('/settings') }}" title="Settings" class="sidebar-link {{ request()->is('settings') ? 'active' : '' }}">
           <span class="icon">âš™ï¸</span> Settings
         </a>
+        @if(auth()->user()?->role?->name === 'TRAVELER')
+        <div class="sidebar-section">Ruang Kerja</div>
+        <a href="{{ url('/traveler') }}" title="Traveler Workspace" class="sidebar-link {{ request()->is('traveler') ? 'active' : '' }}"><span class="icon">🧳</span> Traveler Workspace</a>
+        @endif
+        @if($canManageUsers)
         <div class="sidebar-section">Ruang Kerja</div>
         <a href="{{ url('/dashboard/user-management') }}" class="sidebar-link {{ request()->is('dashboard/user-management') ? 'active' : '' }}">
           <span class="icon">ðŸ‘¥</span> Manajemen Pengguna
@@ -664,6 +699,7 @@
         <a href="{{ url('/dashboard/admin') }}" class="sidebar-link {{ request()->is('dashboard/admin') ? 'active' : '' }}">
           <span class="icon">🛡️</span> Admin
         </a>
+        @endif
       </nav>
       <div class="sidebar-footer">
         <div class="sidebar-user">
@@ -686,10 +722,8 @@
         </div>
       </header>
       <div class="content">
-        @php
-          $pageTitle = $title ?? (request()->is('orders*') ? 'Pesanan' : (request()->is('wallet*') ? 'Dompet Digital' : (request()->is('trips') ? 'Perjalanan' : (request()->is('users*') ? 'Manajemen Pengguna' : (request()->is('settings') ? 'Pengaturan' : 'Titip Kilat')))));
-        @endphp
-        @if(!request()->is('/'))
+        @php($pageTitle = $title ?? (request()->is('orders*') ? 'Pesanan' : (request()->is('wallet*') ? 'Dompet Digital' : (request()->is('trips') ? 'Perjalanan' : (request()->is('users*') ? 'Manajemen Pengguna' : (request()->is('settings') ? 'Pengaturan' : 'Titip Kilat'))))))
+        @if(!request()->is('/') && !request()->is('signup') && !request()->is('password/change*') && !request()->routeIs('password.change'))
           <div class="page-banner"><div><div class="page-banner-kicker"><i class="bi bi-stars"></i> Titip Kilat / Workspace</div><h1>{{ $pageTitle }}</h1><p>Kelola aktivitas platform dengan lebih cepat, jelas, dan aman.</p></div><div class="page-banner-status"><i class="bi bi-broadcast-pin"></i><strong>LIVE OPERATIONS</strong><span>System online · {{ now()->format('d M Y') }}</span></div></div>
         @endif
         @yield('content')
@@ -699,9 +733,9 @@
 
   <div class="login-modal" id="login-modal" role="dialog" aria-modal="true" aria-labelledby="login-modal-title"><div class="login-dialog"><button class="login-close" type="button" aria-label="Tutup">&times;</button><h2 id="login-modal-title">Login</h2><p>Masuk untuk melanjutkan ke Titip Kilat.</p><form class="login-form" method="POST" action="{{ route('login.authenticate') }}">@csrf<label>Email<input name="email" type="email" required autocomplete="email"></label><label>Password<input name="password" type="password" required autocomplete="current-password"></label><button class="btn btn-primary" type="submit" style="justify-content:center">Masuk <i class="bi bi-arrow-right"></i></button></form><div class="login-signup">Belum punya akun?</div><a class="btn btn-outline" href="{{ route('signup') }}" style="width:100%;justify-content:center;margin-top:10px">Sign up</a></div></div>
   <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true">
-    @if(session('success'))<div class="toast toast-success"><i class="bi bi-check-circle-fill"></i><div><strong>Berhasil</strong><span>{{ session('success') }}</span></div><button class="toast-close" type="button" aria-label="Tutup">&times;</button></div>@endif
-    @if(session('error'))<div class="toast toast-error"><i class="bi bi-exclamation-circle-fill"></i><div><strong>Terjadi kesalahan</strong><span>{{ session('error') }}</span></div><button class="toast-close" type="button" aria-label="Tutup">&times;</button></div>@endif
-    @if($errors->any())<div class="toast toast-error"><i class="bi bi-exclamation-circle-fill"></i><div><strong>Periksa kembali</strong><span>{{ $errors->first() }}</span></div><button class="toast-close" type="button" aria-label="Tutup">&times;</button></div>@endif
+    @if(session('success'))<div class="toast toast-success" role="alert"><i class="bi bi-check-circle-fill"></i><div><strong>Berhasil</strong><span>{{ session('success') }}</span></div><button class="toast-close" type="button" aria-label="Tutup">&times;</button></div>@endif
+    @if(session('error'))<div class="toast toast-error" role="alert"><i class="bi bi-exclamation-circle-fill"></i><div><strong>Terjadi kesalahan</strong><span>{{ session('error') }}</span></div><button class="toast-close" type="button" aria-label="Tutup">&times;</button></div>@endif
+    @if($errors->any())<div class="toast toast-error" role="alert"><i class="bi bi-exclamation-circle-fill"></i><div><strong>Periksa kembali</strong><span>{{ $errors->first() }}</span></div><button class="toast-close" type="button" aria-label="Tutup">&times;</button></div>@endif
   </div>
 
   <div class="order-modal" id="order-modal" role="dialog" aria-modal="true" aria-labelledby="order-modal-title">
@@ -742,9 +776,9 @@
       const orderFormModal=document.getElementById('order-form-modal'); const orderForm=document.getElementById('order-form'); const orderTypeButtons=document.querySelectorAll('[data-order-type]'); const closeOrderForm=()=>{orderFormModal?.classList.remove('is-open');document.body.style.overflow='';}; orderTypeButtons.forEach(button=>button.addEventListener('click',()=>{const international=button.dataset.orderType==='international';document.getElementById('order-modal')?.classList.remove('is-open');orderFormModal?.classList.add('is-open');document.body.style.overflow='hidden';document.getElementById('order-form-title').textContent=international?'Buat Pre-order Internasional':'Buat pesanan Antar Warga';document.getElementById('order-form-description').textContent=international?'Pilih traveler dan isi detail barang tanpa meninggalkan halaman ini.':'Isi detail pengiriman tanpa meninggalkan halaman ini.';document.getElementById('order-trip-field').hidden=!international;document.getElementById('order-pickup-field').hidden=international;document.getElementById('order-trip').required=international;document.getElementById('order-pickup').required=!international;orderFormModal?.querySelector('input')?.focus();})); orderFormModal?.querySelector('.order-form-close')?.addEventListener('click',closeOrderForm);document.getElementById('order-form-cancel')?.addEventListener('click',closeOrderForm);orderFormModal?.addEventListener('click',event=>{if(event.target===orderFormModal)closeOrderForm();});orderForm?.addEventListener('submit',event=>{event.preventDefault();event.stopImmediatePropagation();closeOrderForm();window.showToast?.('Detail pesanan siap diproses.');});
       setupModal({ modalId: 'login-modal', triggerSelector: '[data-login-modal]', closeSelector: '.login-close' });
       const toastContainer = document.getElementById('toast-container');
-      const dismissToast = toast => { toast.classList.add('is-leaving'); setTimeout(() => toast.remove(), 220); };
+      const dismissToast = toast => { if (toast.classList.contains('is-leaving')) return; toast.classList.add('is-leaving'); setTimeout(() => toast.remove(), 220); };
       if (toastContainer) toastContainer.querySelectorAll('.toast').forEach(toast => { toast.querySelector('.toast-close').addEventListener('click', () => dismissToast(toast)); setTimeout(() => dismissToast(toast), 4500); });
-      window.showToast = (message, type = 'success') => { if (!toastContainer) return; const error = type === 'error'; const toast = document.createElement('div'); toast.className = `toast toast-${error ? 'error' : 'success'}`; toast.innerHTML = `<i class="bi bi-${error ? 'exclamation-circle-fill' : 'check-circle-fill'}"></i><div><strong>${error ? 'Terjadi kesalahan' : 'Berhasil'}</strong><span></span></div><button class="toast-close" type="button" aria-label="Tutup">&times;</button>`; toast.querySelector('span').textContent = message; toastContainer.appendChild(toast); toast.querySelector('.toast-close').addEventListener('click', () => dismissToast(toast)); setTimeout(() => dismissToast(toast), 4500); };
+      window.showToast = (message, type = 'success') => { if (!toastContainer) return; const kind = ['success','error','info'].includes(type) ? type : 'success'; const copy = { success:['Berhasil','check-circle-fill'], error:['Terjadi kesalahan','exclamation-circle-fill'], info:['Informasi','info-circle-fill'] }[kind]; const toast = document.createElement('div'); toast.className = `toast toast-${kind}`; toast.setAttribute('role','alert'); toast.innerHTML = `<i class="bi bi-${copy[1]}"></i><div><strong>${copy[0]}</strong><span></span></div><button class="toast-close" type="button" aria-label="Tutup">&times;</button>`; toast.querySelector('span').textContent = message; toastContainer.appendChild(toast); toast.querySelector('.toast-close').addEventListener('click', () => dismissToast(toast)); setTimeout(() => dismissToast(toast), 4500); };
       document.querySelectorAll('input[type="password"]').forEach(input => { const wrapper=document.createElement('span'); wrapper.className='password-field'; input.parentNode.insertBefore(wrapper,input); wrapper.appendChild(input); const toggle=document.createElement('button'); toggle.type='button'; toggle.className='password-toggle'; toggle.setAttribute('aria-label','Tampilkan password'); toggle.innerHTML='<i class="bi bi-eye"></i>'; toggle.addEventListener('click',()=>{const visible=input.type==='text';input.type=visible?'password':'text';toggle.setAttribute('aria-label',visible?'Tampilkan password':'Sembunyikan password');toggle.innerHTML=`<i class="bi bi-${visible?'eye':'eye-slash'}"></i>`;}); wrapper.appendChild(toggle); });
       document.querySelectorAll('form').forEach(form => form.addEventListener('submit', event => { if (form.hasAttribute('data-delete-user-form')) return; if (form.dataset.submitting === 'true') { event.preventDefault(); return; } form.dataset.submitting = 'true'; form.setAttribute('aria-busy', 'true'); const deleting = form.querySelector('input[name="_method"][value="DELETE"]'); form.querySelectorAll('button[type="submit"]').forEach(button => { button.disabled = true; button.classList.add('form-loading'); button.dataset.originalText = button.innerHTML; button.innerHTML = deleting ? 'Menghapus...' : 'Menyimpan...'; }); }));
     });
